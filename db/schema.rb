@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2020_07_06_144129) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "grants", force: :cascade do |t|
+    t.string "title"
+    t.string "institution"
+    t.string "grant_number"
+    t.string "contact"
+    t.string "email"
+    t.date "submission"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "program"
+    t.integer "resources_count"
+    t.string "filename"
+    t.index ["filename"], name: "index_grants_on_filename", unique: true
+  end
 
   create_table "ija_data", id: false, force: :cascade do |t|
     t.bigint "level_0"
@@ -128,4 +143,32 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.index ["level_0"], name: "ix_ija_data_level_0"
   end
 
+  create_table "resources", force: :cascade do |t|
+    t.string "access_filename"
+    t.string "access_url"
+    t.string "checksum"
+    t.boolean "restricted"
+    t.text "restricted_comments"
+    t.bigint "grant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "statuses_count"
+    t.index ["grant_id"], name: "index_resources_on_grant_id"
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string "response_code"
+    t.string "response_message"
+    t.decimal "response_time"
+    t.string "status"
+    t.boolean "latest"
+    t.text "status_message"
+    t.bigint "resource_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resource_id"], name: "index_statuses_on_resource_id"
+  end
+
+  add_foreign_key "resources", "grants"
+  add_foreign_key "statuses", "resources"
 end

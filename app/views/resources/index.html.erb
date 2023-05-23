@@ -1,0 +1,68 @@
+<%= pagy_bootstrap_nav(@pagy).html_safe %>
+
+<table
+  class="table table-hover table-striped table-borderless"
+  data-toggle="table"
+  data-search="true"
+  data-show-toggle="true"
+  data-show-fullscreen="true"
+  data-show-columns-toggle-all="true"
+  data-show-export="true"
+  data-show-columns="true"
+  data-pagination="false">
+<thead>
+    <tr>
+      <th scope="col">Verify</th>
+      <th scope="col" data-sortable="true">Last Check</th>
+      <th scope="col" data-sortable="true">Status</th>
+      <th scope="col" data-sortable="true">Status Code</th>
+      <!-- <th scope="col" data-sortable="true">Status Count</th> -->
+      <th scope="col" data-sortable="true">Response Time</th>
+      <th scope="col" data-sortable="true">Resource Name</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @links.each do |resource| %>
+      <tr>
+        <td>
+          <%= link_to 'Run Check', resource_run_check_path(resource.grant, resource), class: 'btn btn-primary' %>
+        </td>
+        <td><%= resource.current_status.created_at.strftime('%m-%d-%Y') unless resource.current_status.nil? %></td>
+        <td><%= resource.current_status.status unless resource.current_status.nil? %></td>
+        <td>
+          <% unless resource.current_status.nil? %>
+            <span class="badge bg-<%= resource.current_status.response_code %>">
+              <%= resource.current_status.response_code %>
+            </span>
+          <% end %>
+        </td>
+        <!-- <td><%= resource.statuses_count %></td> -->
+        <td><%= resource.current_status.response_time unless resource.current_status.nil? %></td>
+        <td>
+          <%= link_to(resource.access_filename, resource.access_url) %>
+        </td>
+        <td>
+          <% unless resource.restricted? || !resource.valid_url? %>
+          <!-- <button type="button" class="btn btn-primary">
+            <%#= link_to content_tag('Check Resource'), {controller: 'resources', action: 'check_status', id: resource.id}, data: { no_turbolink: true }, target: '_blank', title: 'Check Resource' %>
+            Check Asset
+          </button> -->
+          <% end %>
+          <% if resource.restricted? %>
+            <button type="button" class="btn btn-warning disabled">Restricted</button>
+          <% end %>
+          <% unless resource.valid_url? && !resource.restricted? %>
+            <button type="button" class="btn btn-danger disabled">Invalid URL</button>
+            <!-- <span class="badge badge-danger">Invalid URL</span> -->
+          <% end %>
+          <%#= link_to 'More', grant_resource_path(@grant, resource) %>
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= pagy_bootstrap_nav(@pagy).html_safe %>
+

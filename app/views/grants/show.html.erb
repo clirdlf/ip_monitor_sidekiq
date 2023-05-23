@@ -1,0 +1,144 @@
+<p id="notice"><%= notice %></p>
+
+<nav aria-label="breadcrumb">
+  <ol>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to 'Home', root_path %></li>
+      <li class="breadcrumb-item active"><%= @grant.title %></li>
+    </ol>
+  </ol>
+</nav>
+
+<div class="row">
+
+  <div class="col-12">
+    <div class="m-b-20">
+      <h1 class="mb-1"><%= @grant.title %></h1>
+      <p class="text-dark"><%= number_with_delimiter @grant.resources.size %> Resources</p>
+    </div>
+    <div class="location">
+      <p class="border-bottom pb-3">
+        <span class="d-xl-inline-block d-block mb-2"><i class="fa fa-map-marker-alt mr-2 mb-2"></i> <%= @grant.institution %></span>
+        <span class="mb-2 d-xl-inline-block d-block ml-xl-4"><i class="fa fa-envelope mr-2 mb-2"></i> <%= mail_to @grant.email, @grant.contact %></span>
+        <span class="mb-2 ml-xl-4 d-xl-inline-block d-block "><i class="fa fa-calendar mr-2 mb-2"></i> <strong>Submitted:</strong> <%= @grant.submission %></span>
+        <span class="mb-2 ml-xl-4 d-xl-inline-block d-block "><strong>Program:</strong> <%= @grant.program %></span>
+        <span class="mb-2 ml-xl-4 d-xl-inline-block d-block "><i class="fa fa-file-excel mr-2 mb-2"></i> <strong>Filename:</strong> <%= @grant.filename %></span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12"><%= link_to 'Edit', edit_grant_path(@grant), class: 'btn btn-warning' %></div>
+</div>
+
+<div class="row border-bottom ">
+  <div class="col-3 ">
+    <p class="pb-3">
+      <strong>Total Resources:</strong> <%= @grant.resources.size %> <br>
+      <strong>Restricted Resources: </strong> <%= @grant.restricted_resources_count %><br>
+      <strong>Public Resources:</strong> <%= @grant.public_resources_count%><br>
+      <strong>Currently Online:</strong>  <%= @grant.online_resources_count %><br>
+
+      <strong>Availability Score:</strong>  <%= number_to_percentage(@grant.availability_score, precision: 2) %>
+    </p>
+  </div>
+  <div class="col-9">
+      <canvas id="stats"></canvas>
+  </div>
+</div>
+
+<table
+  class="table table-hover table-striped table-borderless"
+  data-toggle="table"
+  data-search="true"
+  data-show-toggle="true"
+  data-show-fullscreen="true"
+  data-show-columns-toggle-all="true"
+  data-show-export="true"
+  data-show-columns="true"
+  data-pagination="false">
+  <thead>
+    <tr>
+      <th scope="col">Verify</th>
+      <th scope="col" data-sortable="true">Last Check</th>
+      <th scope="col" data-sortable="true">Status</th>
+      <th scope="col" data-sortable="true">Status Code</th>
+      <!-- <th scope="col" data-sortable="true">Status Count</th> -->
+      <th scope="col" data-sortable="true">Response Time</th>
+      <th scope="col" data-sortable="true">Resource Name</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @grant.resources.each do |resource| %>
+      <tr>
+        <td>
+          <%= link_to 'Run Check', resource_run_check_path(resource.grant, resource), class: 'btn btn-primary' %>
+        </td>
+        <td><%= resource.current_status.created_at.strftime('%m-%d-%Y') unless resource.current_status.nil? %></td>
+        <td><%= resource.current_status.status unless resource.current_status.nil? %></td>
+        <td>
+          <% unless resource.current_status.nil? %>
+            <span class="badge bg-<%= resource.current_status.response_code %>">
+              <%= resource.current_status.response_code %>
+            </span>
+          <% end %>
+        </td>
+        <!-- <td><%= resource.statuses_count %></td> -->
+        <td><%= resource.current_status.response_time unless resource.current_status.nil? %></td>
+        <td>
+          <%= link_to(resource.access_filename, resource.access_url) %>
+        </td>
+        <td>
+          <% unless resource.restricted? || !resource.valid_url? %>
+          <!-- <button type="button" class="btn btn-primary">
+            <%#= link_to content_tag('Check Resource'), {controller: 'resources', action: 'check_status', id: resource.id}, data: { no_turbolink: true }, target: '_blank', title: 'Check Resource' %>
+            Check Asset
+          </button> -->
+          <% end %>
+          <% if resource.restricted? %>
+            <button type="button" class="btn btn-warning disabled">Restricted</button>
+          <% end %>
+          <% unless resource.valid_url? && !resource.restricted? %>
+            <button type="button" class="btn btn-danger disabled">Invalid URL</button>
+            <!-- <span class="badge badge-danger">Invalid URL</span> -->
+          <% end %>
+          <%= link_to 'More', grant_resource_path(@grant, resource) %>
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+
+<%= link_to 'Edit', edit_grant_path(@grant) %> |
+<%= link_to 'Back', grants_path %>
+
+<script>
+  var data = {
+    datasets: [{
+      data: [ <%= @grant.online_resources_count %>, <%= @grant.offline_resources_count %> ],
+      backgroundColor: [
+        'rgba(75, 192, 192, 1)', // online = green
+        'rgba(255, 99, 132, 1)' // offline = red
+      ]
+    }],
+    labels: [
+      'OK',
+      'Not Found'
+    ],
+
+  };
+  var options = {};
+  var ctx = document.getElementById('stats');
+
+  var chart = new Chart(ctx, {
+    type: 'pie',
+    data: data,
+    options: options
+  });
+
+</script>

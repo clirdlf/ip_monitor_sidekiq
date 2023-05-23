@@ -73,3 +73,9 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "sidekiq", "~> 7.1"
+
+gem "pagy", "~> 6.0"
+
+gem "faraday", "~> 2.7"

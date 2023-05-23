@@ -1,0 +1,52 @@
+<%= form_with(model: grant, local: true) do |form| %>
+  <% if grant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(grant.errors.count, "error") %> prohibited this grant from being saved:</h2>
+
+      <ul>
+        <% grant.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+   <div class="field">
+    <%= form.label :program %>
+    <%= form.text_field :program %>
+  </div>
+
+  <div class="field">
+    <%= form.label :institution %>
+    <%= form.text_field :institution %>
+  </div>
+
+  <div class="field">
+    <%= form.label :grant_number %>
+    <%= form.text_field :grant_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contact %>
+    <%= form.text_field :contact %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :submission %>
+    <%= form.date_select :submission %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

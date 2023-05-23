@@ -1,0 +1,79 @@
+<nav aria-label="breadcrumb">
+  <ol>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to 'Home', root_path %></li>
+      <li class="breadcrumb-item"><%= link_to @resource.grant.title, @resource.grant %></li>
+      <li class="breadcrumb-item active"><%= @resource.access_filename %></li>
+    </ol>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-12">
+    <h1><%= @resource.access_filename %></h1>
+
+    <p>
+      <strong>URL:</strong> <%= link_to @resource.access_url, @resource.access_url  %>
+    </p>
+
+    <p>
+      <strong>Restricted?:</strong> <%= @resource.restricted %>
+    </p>
+
+    <p>
+      <strong>Checksum:</strong> <%= @resource.checksum %>
+    </p>
+
+    <p>
+      <strong>Comments:</strong> <%= @resource.restricted_comments %>
+    </p>
+
+    <p>
+      <strong>Number of Checks: <%= @resource.statuses.count %></strong>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div id="stats"></div>
+</div>
+
+<div class="row">
+  <%= link_to 'Run Check', resource_run_check_path(@resource.grant, @resource), class: 'btn btn-primary' %>
+</div>
+
+<% if @resource.statuses.count > 0 %>
+<div class="row">
+  <div class="col-12">
+    <h2>Statuses</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Response Code</th>
+          <th scope="col">Status</th>
+          <th scope="col">Response Time</th>
+          <th scope="col">Latest?</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @resource.statuses.order(created_at: :desc).each do |status| %>
+        <tr>
+          <td>
+            <span class="badge bg-<%=status.response_code %>"><%= status.response_code %></span>
+          </td>
+          <td><%= status.status %></td>
+          <td><%= status.response_time %></td>
+          <td><%= status.latest %></td>
+          <td><%= status.created_at %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% end %>
+
+<% data = @resource.statuses.map{|s,v| [s.created_at.strftime('%Y-%m-%d'), s.response_time]}.to_a %>
+<%= data %>
+

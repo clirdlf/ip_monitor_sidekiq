@@ -1,0 +1,126 @@
+<div class="row">
+  <div class="col-12">
+    <h1>General Statistics</h1>
+
+    <div class="row">
+      Date Generated:
+      <%= Date.today.strftime("%a, %e %b %Y") %>
+    </div>
+
+    <div class="row">
+      <% total_expected = @resources.where(restricted: false).count %>
+      <% actual_count = @statuses.where(latest: true).where(status: 'OK').count %>
+      <%# This is a total hack; need to figure out a better way to do this. %>
+      <% dhc_status_count_query = 'SELECT count(*) FROM statuses s
+INNER JOIN resources r
+	ON r.id = s.resource_id
+INNER JOIN grants g
+	ON g.id = r.grant_id
+WHERE s.latest = \'true\'
+AND s.status = \'OK\'
+AND program = \'Digitizing Hidden Special Collections and Archives\';' %>
+
+       <% rar_status_count_query = 'SELECT count(*) FROM statuses s
+INNER JOIN resources r
+	ON r.id = s.resource_id
+INNER JOIN grants g
+	ON g.id = r.grant_id
+WHERE s.latest = \'true\'
+AND s.status = \'OK\'
+AND program = \'Recordings at Risk\';' %>
+          <table class="table">
+            <tr>
+              <th>&nbsp;</th>
+              <th>Total Grants</th>
+              <th>Total Assets Reported</th>
+              <th>Restricted Assets</th>
+              <th>Number Online</th>
+              <th>Expected Online</th>
+            </tr>
+            <tr>
+              <td>
+                Total:
+              </td>
+              <td><%= number_with_delimiter(@grants.count) %></td>
+              <td><%= number_with_delimiter(@resources.count) %></td>
+              <td><%= number_with_delimiter(@resources.where(restricted: true).count) %></td>
+              <td>
+                <%= number_with_delimiter total_expected %>
+              </td>
+              <td>
+                <%= number_to_percentage(100 * (actual_count.to_f / total_expected.to_f)) %>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Digitizing Hidden Special Collections and Archives
+              </td>
+              <td><%= number_with_delimiter(@grants.where(program: 'Digitizing Hidden Special Collections and Archives').count) %></td>
+              <% dhc_resources = Resource.joins(:grant).where('grant.program' => 'Digitizing Hidden Special Collections and Archives') %>
+              <td><%= number_with_delimiter(dhc_resources.count) %></td>
+              <td><%= number_with_delimiter(dhc_resources.where(restricted: true).count) %></td>
+              <!-- TODO: break out stats by program -->
+              <% dhc_status_count = ActiveRecord::Base.connection.execute(dhc_status_count_query).getvalue(0,0) %>
+              <% dhc_reported_count = dhc_resources.where(restricted: false).count %>
+              <td><%= number_with_delimiter dhc_reported_count %></td>
+              <td>
+              <%= number_to_percentage(100 * (dhc_status_count.to_f / dhc_reported_count.to_f)) %></td>
+
+            </tr>
+            <tr>
+              <td>Recordings at Risk</td>
+              <% rar_resources = Resource.joins(:grant).where('grant.program' => 'Recordings at Risk') %>
+
+              <td><%= number_with_delimiter(@grants.where(program: 'Recordings at Risk').count) %></td>
+              <td><%= number_with_delimiter(rar_resources.count) %></td>
+              <td><%= number_with_delimiter(rar_resources.where(restricted: true).count) %></td>
+              <% rar_status_count = ActiveRecord::Base.connection.execute(rar_status_count_query).getvalue(0,0) %>
+              <% rar_reported_count = rar_resources.where(restricted: false).count %>
+              <td><%= number_with_delimiter rar_reported_count %></td>
+              <td><%= number_to_percentage(100 * (rar_status_count.to_f / rar_reported_count.to_f)) %></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="row">
+          <h2 id="errors">Server Responses</h2>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Response Code</th>
+                <th>Status</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% codes = @statuses.select(:response_code, :status).order(:response_code).distinct.where(latest: true) %>
+              <% codes.each do |response| %>
+                <% status_count = @statuses.where(latest: true).where(response_code: response.response_code) %>
+                  <tr>
+                    <td><%= number_with_delimiter response.response_code %></td>
+                    <td><%= response.status %></td>
+                    <td><%= number_with_delimiter status_count.count %></td>
+                  </tr>
+                <% end %>
+            </tbody>
+          </table>
+        </div>
+
+            <div class="row">
+              <h2 id="timing">Response Times</h2>
+              <% current_statuses = @statuses.where(latest: true) %>
+                <ul>
+                  <li>Average Current Response Time:
+                    <%= '%.4f' % current_statuses.average(:response_time) %>s
+                  </li>
+                  <li>Fastest Current Response Time:
+                    <%= '%.4f' % current_statuses.minimum(:response_time) %>s
+                  </li>
+                  <li>
+                    Slowest Current Response Time:
+                    <%= '%.4f' % current_statuses.maximum(:response_time) %>s
+                  </li>
+                </ul>
+            </div>
