@@ -79,3 +79,13 @@ gem "sidekiq", "~> 7.1"
 gem "pagy", "~> 6.0"
 
 gem "faraday", "~> 2.7"
+
+gem "chronic", "~> 0.10.2"
+
+gem "colorize", "~> 0.8.1"
+
+gem "roo", "~> 2.10"
+
+gem "boolean", "~> 1.0"
+
+gem "faraday-follow_redirects", "~> 0.3.0"

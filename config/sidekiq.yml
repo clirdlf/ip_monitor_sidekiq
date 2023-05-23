@@ -1,0 +1,4 @@
+# https://github.com/sidekiq/sidekiq/blob/main/examples/config.yml
+# this sets the concurrency up from 10 to 25 (production)
+---
+:concurrency: 25
