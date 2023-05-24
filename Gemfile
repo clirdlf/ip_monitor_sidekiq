@@ -89,3 +89,9 @@ gem "roo", "~> 2.10"
 gem "boolean", "~> 1.0"
 
 gem "faraday-follow_redirects", "~> 0.3.0"
+
+gem "rubocop", "~> 1.51"
+
+gem "to_bool", "~> 2.0"
+
+gem "rails-erd", "~> 1.7"
