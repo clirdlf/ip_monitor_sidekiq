@@ -28,13 +28,13 @@ namespace :import do
       # TODO: Don't import already created grants
       grant = Grant.find_or_create_by(
         {
-           title: manifest.title,
-           institution: manifest.institution,
-           grant_number: manifest.grant_number,
-           contact: manifest.contact,
-           email: manifest.email,
-           submission: manifest.submission,
-           filename: filename
+            title: manifest.title,
+            institution: manifest.institution,
+            grant_number: manifest.grant_number,
+            contact: manifest.contact,
+            email: manifest.email,
+            submission: manifest.submission,
+            filename: filename
         }
       )
 
