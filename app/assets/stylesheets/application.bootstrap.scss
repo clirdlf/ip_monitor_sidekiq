@@ -1,2 +1,25 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+main {
+    margin-top: 60px;
+}
+
+.bg-200 {
+    background-color: #198754 !important;
+    color: #fff;
+}
+
+.bg-400,
+.bg-403,
+.bg-404,
+.bg-800,
+.bg-801 {
+    background-color: #dc3545 !important;
+    color: #fff;
+}
+
+.bg-500 {
+    background-color: #ffc107 !important;
+    color: #fff;
+}
