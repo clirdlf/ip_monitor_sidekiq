@@ -1,5 +1,13 @@
 # IP Monitor
 
+This is a reimplimentation of the IP Monitor [CLIR](https://www.clir.org) uses to validate and study access to online resources digitized in its various programs ([Digitizing Hidden Collections](https://www.clir.org/hiddencollections/) and [Recordings at Risk](https://www.clir.org/recordings-at-risk/)). The approach is to collect information about where the objects can be viewed online (along with other useful technical metadata) to check the server header response (and not download the reponse body) to check the "health" of the online resources.
+
+This application uses [Ruby on Rails](https://rubyonrails.org/) as a web frontend with [Bootstrap](https://getbootstrap.com/) providing the front-end tooling; [Postgresql](https://www.postgresql.org/) as a data persistence layer; [SideKiq](https://github.com/sidekiq/sidekiq) as its queuing system on top of the in-memory data store [Redis](https://redis.io/). Manifests are converted rom Excel spreadsheets using `rake` tasks and `Resources` are loaded into the queue in random order to ensure no single server sustains a high number of requests (and helps with throttling).
+
+This migrates away from [Resque](https://github.com/resque/resque) for two main reasons: 1) Performance and 2) Development intertia. Sidekiq is multi-threaded (compared to Resque's single-threaded fork processes). When running checks on hundreds of thousands of URLs, this allows a much lower memory footprint when parallelizing jobs (Sidekiq doesn't require 20 processes for 20 jobs; just one process with 20 threads). Secondly, the WebUI for SideKiq is supported without another gem (which had dependencies that are no longer shipping with Rails and made more difficult to maintain).
+
+## Interface
+
     foreman start -f Procfile.dev
 
 ## Adding Manifests
