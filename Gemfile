@@ -95,3 +95,5 @@ gem "rubocop", "~> 1.51"
 gem "to_bool", "~> 2.0"
 
 gem "rails-erd", "~> 1.7"
+
+gem "iiif-presentation", "~> 1.1"

@@ -19,9 +19,9 @@ This migrates away from [Resque](https://github.com/resque/resque) for two main 
 
 ## Manual Testing
 
-```
- curl -L -I -s <url>
-```
+    ```bash
+    curl -L -I -s <url>
+    ```
 
 ## Backups
 
@@ -39,32 +39,34 @@ These should be added to Box.
 
 ### Find Duplicates
 
-```sql
-SELECT title, count(*)
-from grants
-group by title
-having count(*) > 1;
-```
+    ```sql
+  SELECT title, count(*)
+  from grants
+  group by title
+  having count(*) > 1;
+    ```
 
 ## Clean HTML
-```sql
-UPDATE resources 
-SET access_url = regexp_replace(access_url, '<[^>]*>', '', 'g')
-WHERE grant_id = 95
-AND access_url LIKE '<html>%';
-```
+
+    ```sql
+    UPDATE resources 
+    SET access_url = regexp_replace(access_url, '<[^>]*>', '', 'g')
+    WHERE grant_id = 95
+    AND access_url LIKE '<html>%';
+    ```
 
 ## Sidekiq
+
 <https://prabinpoudel.com.np/articles/setup-active-job-with-sidekiq-in-rails/>
 
-- Add the items into the queue
-- Run `be sidekiq` to start processing the queue
+* Add the items into the queue
+* Run `be sidekiq` to start processing the queue
 
 <https://www.ruby-toolbox.com/projects/faraday-follow_redirects>
 
 <https://github.com/gmac/sidekiq-heroku-autoscale#environment-config>
 
-# Faraday Timeout 
+## Faraday Timeout
 
 There are resources getting Faraday::ConnectionTimeout errors; these should be retried at least once
  

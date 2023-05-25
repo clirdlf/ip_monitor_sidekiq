@@ -45,8 +45,8 @@ module Ipmonitor
     # Checks if a resource is online (following redirects)
     def check_resource
       conn = Faraday.new(
-        url: @url, 
-        ssl: { verify: false }, 
+        url: @url,
+        ssl: { verify: false },
         headers: { 'User-Agent' => user_agent }
       )
       # https://www.rubydoc.info/gems/faraday-follow_redirects/0.3.0

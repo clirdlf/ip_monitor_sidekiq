@@ -1,0 +1,2 @@
+clir_grant_number,clir_program,project_title,lead_institution,contact_name,contact_email,submission_date,iiif_manifest_url
+1234,Digitizing Hidden Special Collections and Archives,"This is a sample project","CLIR","Wayne Graham","wgraham@clir.org","2023-06-30",https://iiif.io/api/cookbook/recipe/0009-book-1/manifest.json
