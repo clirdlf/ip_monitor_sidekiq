@@ -17,6 +17,12 @@ This migrates away from [Resque](https://github.com/resque/resque) for two main 
 * **Import** the manifests into the database (`rails import:manifests`)
 * Start the app container (`foreman start -f Procfile.dev`)
 
+## Adding IIIF Manifests
+
+* Add entry to `lib/manifests-iiif/manifests.csv`
+
+There is a seperate set of rake tasts (`rake -T iiif`) for managing IIIF manifests.
+
 ## Manual Testing
 
     ```bash
@@ -69,5 +75,5 @@ These should be added to Box.
 ## Faraday Timeout
 
 There are resources getting Faraday::ConnectionTimeout errors; these should be retried at least once
- 
+
 <https://github.com/sidekiq/sidekiq/issues/4558>
