@@ -1,0 +1,22 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Verify</th>
+      <th scope="col" data-sortable="true">Last Check</th>
+      <th scope="col" data-sortable="true">Status</th>
+      <th scope="col" data-sortable="true">Status Code</th>
+      <th scope="col" data-sortable="true">Response Time</th>
+      <th scope="col" data-sortable="true">Resource Name</th>
+    </tr>
+  </thead>
+  <% @statuses.each do |status| %>
+    <tr>
+      <td><%= link_to 'Run Check', resource_run_check_path(status.resource.grant, status.resource), class: 'btn btn-primary' %></td>
+      <td><%= status.created_at %></td>
+      <td><%= status.response_code %></td>
+      <td><%= status.status %></td>
+      <td><%= status.response_time %></td>
+      <td><%= status.resource.access_filename %></td>
+    </tr>
+  <% end %>
+</table>

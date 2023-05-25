@@ -21,6 +21,10 @@ class GrantsController < ApplicationController
     @statuses  = Status.all
   end
 
+  def issues
+    @statuses = Status.where(latest: true).where.not(status: 'OK')
+  end
+
   # Verify for a specfic grant
   def verify_resources
     @grant.resources.each do |resource|

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'verify_rar' => 'resources#verify_rar'
   get 'verify_dhc' => 'resources#verify_dhc'
   get 'stats' => 'grants#stats'
+  get 'issues' => 'grants#issues'
 
   # Defines the root path route ("/")
   root 'grants#index'

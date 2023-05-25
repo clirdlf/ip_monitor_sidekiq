@@ -8,14 +8,14 @@ This migrates away from [Resque](https://github.com/resque/resque) for two main 
 
 ## Interface
 
-    foreman start -f Procfile.dev
+    foreman start
 
 ## Adding Manifests
 
 * Save the Excel spreadsheets of the manifiests collected by institutions into `lib/manifests`.
 * **Validate** the manifests (`rails import:validate`)
 * **Import** the manifests into the database (`rails import:manifests`)
-* Start the app container (`foreman start -f Procfile.dev`)
+* Start the app container (`foreman start`)
 
 ## Adding IIIF Manifests
 
@@ -77,3 +77,7 @@ These should be added to Box.
 There are resources getting Faraday::ConnectionTimeout errors; these should be retried at least once
 
 <https://github.com/sidekiq/sidekiq/issues/4558>
+
+## Notes
+
+- Update startup in `Procfile`
