@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'active_model'
 require 'chronic'
 require 'colorize'
@@ -28,32 +29,31 @@ namespace :import do
       # TODO: Don't import already created grants
       grant = Grant.find_or_create_by(
         {
-            title: manifest.title,
-            institution: manifest.institution,
-            grant_number: manifest.grant_number,
-            contact: manifest.contact,
-            email: manifest.email,
-            submission: manifest.submission,
-            filename: filename
+          title: manifest.title,
+          institution: manifest.institution,
+          grant_number: manifest.grant_number,
+          contact: manifest.contact,
+          email: manifest.email,
+          submission: manifest.submission,
+          filename:
         }
       )
 
       manifest.resources.each do |resource|
         # restriction = ActiveModel::Type::Boolean.new.cast(resource[:restricted])
-        unless resource[:checksum] == 'CHECKSUM'
-          Resource.find_or_create_by(
-            {
-              access_filename: resource[:access_filename],
-              access_url: resource[:access_url],
-              checksum: resource[:checksum],
-              # restricted: resource[:restricted].to_bool,
-              restricted: Boolean(resource[:restricted]),
-              restricted_comments: resource[:restricted_comments],
-              grant_id: grant.id
-            }
-          ) unless resource[:restricted].nil?
-        end
+        next unless !(resource[:checksum] == 'CHECKSUM') && !resource[:restricted].nil? && !resource[:restricted].nil?
 
+        Resource.find_or_create_by(
+          {
+            access_filename: resource[:access_filename],
+            access_url: resource[:access_url],
+            checksum: resource[:checksum],
+            # restricted: resource[:restricted].to_bool,
+            restricted: Boolean(resource[:restricted]),
+            restricted_comments: resource[:restricted_comments],
+            grant_id: grant.id
+          }
+        )
       end
     end
   end

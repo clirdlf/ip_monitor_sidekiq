@@ -64,9 +64,9 @@ module Ipmonitor
     rescue Faraday::TimeoutError
       # @response = Ipmonitor::Response.new({status: 801})
       raise Ipmonitor::Exceptions::ResourceFail, message: 'Connection timeout', url: conn.url_prefix.to_s, status: 801
-    # rescue Faraday::OpenTimeoutError
-    #   # @response.status = 504
-    #   raise Ipmonitor::Exception::ResourceFail, message: 'Server timeout', url: conn.url_prefix.to_s, status: 504
+      # rescue Faraday::OpenTimeoutError
+      #   # @response.status = 504
+      #   raise Ipmonitor::Exception::ResourceFail, message: 'Server timeout', url: conn.url_prefix.to_s, status: 504
     end
 
     ##

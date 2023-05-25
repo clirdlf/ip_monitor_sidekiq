@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'pages/home'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  mount Sidekiq::Web => "/sidekiq"
+  mount Sidekiq::Web => '/sidekiq'
 
   resources :grants do
     resources :resources do
@@ -23,5 +23,5 @@ Rails.application.routes.draw do
   get 'stats' => 'grants#stats'
 
   # Defines the root path route ("/")
-  root "grants#index"
+  root 'grants#index'
 end

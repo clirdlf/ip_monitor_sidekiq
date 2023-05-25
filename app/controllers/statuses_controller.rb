@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
+##
+# (HTTP) Status for resource
 class StatusesController < ApplicationController
-    before_action :set_grant, only: %i[show edit status update destroy]
+  before_action :set_grant, only: %i[show edit status update destroy]
 
-    def check_status; end
+  def check_status; end
 
-    private
+  private
 
-    def set_resource
-        @resource = Resource.find(params[:id])
-    end
+  def set_resource
+    @resource = Resource.find(params[:id])
+  end
 end

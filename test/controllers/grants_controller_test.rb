@@ -19,7 +19,9 @@ class GrantsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create grant' do
     assert_difference('Grant.count') do
-      post grants_url, params: { grant: { contact: @grant.contact, email: @grant.email, grant_number: @grant.grant_number, institution: @grant.institution, submission: @grant.submission, title: @grant.title } }
+      post grants_url,
+           params: { grant: { contact: @grant.contact, email: @grant.email, grant_number: @grant.grant_number,
+                              institution: @grant.institution, submission: @grant.submission, title: @grant.title } }
     end
 
     assert_redirected_to grant_url(Grant.last)
@@ -36,7 +38,9 @@ class GrantsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update grant' do
-    patch grant_url(@grant), params: { grant: { contact: @grant.contact, email: @grant.email, grant_number: @grant.grant_number, institution: @grant.institution, submission: @grant.submission, title: @grant.title } }
+    patch grant_url(@grant),
+          params: { grant: { contact: @grant.contact, email: @grant.email, grant_number: @grant.grant_number,
+                             institution: @grant.institution, submission: @grant.submission, title: @grant.title } }
     assert_redirected_to grant_url(@grant)
   end
 

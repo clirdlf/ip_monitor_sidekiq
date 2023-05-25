@@ -5,13 +5,13 @@ class Manifest
 
   def to_h
     {
-      title: title,
-      program: program,
-      grant_number: grant_number,
-      institution: institution,
-      submission: submission,
-      contact: contact,
-      email: email
+      title:,
+      program:,
+      grant_number:,
+      institution:,
+      submission:,
+      contact:,
+      email:
     }
   end
 
@@ -76,7 +76,8 @@ class Manifest
     @data_sheet ||= @manifest.sheet('MANIFEST DATA')
     @data_sheet.parse(headers: true, clean: true)
 
-    headers = ['RESTRICTED? (Y/N)', 'DIRECT URL TO FILE', 'ACCESS  FILENAME', 'CHECKSUM', 'COMMENTS ABOUT RESTRICTIONS','PRESERVATION FILENAME','PRESERVATION FILE LOCATION']
+    headers = ['RESTRICTED? (Y/N)', 'DIRECT URL TO FILE', 'ACCESS  FILENAME', 'CHECKSUM', 'COMMENTS ABOUT RESTRICTIONS',
+               'PRESERVATION FILENAME', 'PRESERVATION FILE LOCATION']
     headers.each do |header|
       raise ValidationError, "Missing Resource Header #{header}" unless @data_sheet.headers.to_h.key?(header)
     end
@@ -84,24 +85,23 @@ class Manifest
 
   def validate_program
     programs = ['Recordings at Risk', 'Digitizing Hidden Special Collections and Archives']
-    raise ValidationError, "Invalid program: #{self.program}" if programs.exclude?(self.program)
+    raise ValidationError, "Invalid program: #{program}" if programs.exclude?(program)
   end
 
   def validate_submission_date
-    date = Chronic.parse(self.submission)
+    date = Chronic.parse(submission)
     raise ValidationError, 'Invalid submission date' if date.nil?
   end
 
   def validate_grant_number
-    raise ValidationError, 'Invalid grant number' if self.grant_number.nil?
+    raise ValidationError, 'Invalid grant number' if grant_number.nil?
   end
-
 end
 
 class ValidationError < StandardError
   attr_reader :action
 
-  def initialize(message, action="custom")
+  def initialize(message, action = 'custom')
     super(message)
 
     @action = action
