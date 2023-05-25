@@ -5,7 +5,7 @@
       <th scope="col" data-sortable="true">Last Check</th>
       <th scope="col" data-sortable="true">Status</th>
       <th scope="col" data-sortable="true">Status Code</th>
-      <th scope="col" data-sortable="true">Response Time</th>
+      <th scope="col" data-sortable="true">Grant</th>
       <th scope="col" data-sortable="true">Resource Name</th>
     </tr>
   </thead>
@@ -15,8 +15,8 @@
       <td><%= status.created_at %></td>
       <td><%= status.response_code %></td>
       <td><%= status.status %></td>
-      <td><%= status.response_time %></td>
-      <td><%= status.resource.access_filename %></td>
+      <td><%= link_to status.resource.grant.title, status.resource.grant %></td>
+      <td><%= link_to status.resource.access_filename, status.resource %></td>
     </tr>
   <% end %>
 </table>
