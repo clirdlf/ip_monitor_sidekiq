@@ -20,6 +20,17 @@ class ResourcesController < ApplicationController
     end
   end
 
+  def verify_grant
+    @resources = Resource.find(params[:grant_id])
+
+    @resources.each do |resource|
+      next unless resource.valid_url?
+
+      ResourceValidatorJob.perform_later(resource) unless resource.restricted?
+    end
+
+  end
+
   def verify_rar
     @resources = Resource.joins(:grant)
                          .where('program = \'Recordings at Risk\' AND restricted is false and access_url LIKE \'http%\'')
@@ -77,7 +88,7 @@ class ResourcesController < ApplicationController
   def resource_params
     params.require(:resource).permit(
       :access_filename, :access_url, :checksum, :restricted,
-      :restricted_comments
+      :restricted_comments, :grant_id
     )
   end
 end
