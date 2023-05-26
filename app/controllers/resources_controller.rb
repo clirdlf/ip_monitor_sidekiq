@@ -11,23 +11,34 @@ class ResourcesController < ApplicationController
     # @resources = Resource.order(Arel.sql('RANDOM()')).where('statuses_count IS NULL')
     # WHERE restricted IS FALSE
     # AND access_url LIKE 'http%
-    @resources = Resource.order(Arel.sql('RANDOM()')).where('restricted IS false AND access_url LIKE \'http%\'')
-    @resources.each do |r|
-      next unless r.valid_url?
+    @resources = Resource.order(Arel.sql('RANDOM()')).where('restricted IS false AND access_url LIKE \'http%\' LIMIT 10')
 
-      #  TODO: this check should be in the object.run_check
-      ResourceValidatorJob.perform_later(r) unless r.restricted?
+      # TODO: DRY
+    @resources.in_batches do |resource|
+      array_of_args = resource.ids.map { |x| [x] }
+      ResourceValidatorJob.perform_bulk(array_of_args) unless resource.restricted?
     end
+    # @resources.each do |r|
+    #   next unless r.valid_url?
+
+    #   #  TODO: this check should be in the object.run_check
+    #   ResourceValidatorJob.perform_later(r) unless r.restricted?
+    # end
   end
 
   def verify_grant
     @resources = Resource.find(params[:grant_id])
 
-    @resources.each do |resource|
-      next unless resource.valid_url?
-
-      ResourceValidatorJob.perform_later(resource) unless resource.restricted?
+    @resources.in_batches do | resource | 
+      array_of_args = resource.ids.map { |x| [x] }
+      ResourceValidatorJob.perform_bulk(array_of_args) unless resource.restricted?
     end
+
+    # @resources.each do |resource|
+    #   next unless resource.valid_url?
+
+    #   ResourceValidatorJob.perform_later(resource) unless resource.restricted?
+    # end
 
   end
 
@@ -36,11 +47,16 @@ class ResourcesController < ApplicationController
                          .where('program = \'Recordings at Risk\' AND restricted is false and access_url LIKE \'http%\'')
                          .order(Arel.sql('RANDOM()'))
 
-    @resources.each do |resource|
-      next unless resource.valid_url?
-
-      ResourceValidatorJob.perform_later(resource) unless r.restricted?
+    @resources.in_batches do |resource|
+      array_of_args = resource.ids.map { |x| [x] }
+      ResourceValidatorJob.perform_bulk(array_of_args) unless resource.restricted?
     end
+
+    # @resources.each do |resource|
+    #   next unless resource.valid_url?
+
+    #   ResourceValidatorJob.perform_later(resource) unless r.restricted?
+    # end
   end
 
   def verify_dhc
@@ -48,16 +64,22 @@ class ResourcesController < ApplicationController
                          .where('program = \'Digitizing Hidden Special Collections and Archives\' AND restricted is false and access_url LIKE \'http%\'')
                          .order(Arel.sql('RANDOM()'))
 
-    @resources.each do |resource|
-      next unless resource.valid_url?
-
-      ResourceValidatorJob.perform_later(resource) unless r.restricted?
+    @resources.in_batches do |resource|
+      array_of_args = resource.ids.map { |x| [x] }
+      ResourceValidatorJob.perform_bulk(array_of_args) unless resource.restricted?
     end
+
+    # @resources.each do |resource|
+    #   next unless resource.valid_url?
+
+    #   ResourceValidatorJob.perform_later(resource) unless r.restricted?
+    # end
   end
 
   def run_check
     @resource = Resource.find(params[:resource_id])
-    ResourceValidatorJob.perform_now(@resource) unless @resource.restricted
+    # ResourceValidatorJob.perform_now(@resource) unless @resource.restricted
+    ResourceValidatorJob.perform_async(@resource.id) unless @resource.restricted
     redirect_to grant_resource_path(@resource.grant, @resource)
   end
 
