@@ -11,6 +11,6 @@ class ResourceValidatorJob
 
   def perform(id)
     resource = Resource.find_by(id: id)
-    resource.run_check
+    resource.run_check unless resource.restricted?
   end
 end
