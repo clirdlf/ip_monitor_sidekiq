@@ -2,6 +2,7 @@
 
 require 'faraday'
 require 'faraday/follow_redirects'
+require 'faraday/retry'
 require 'net/http'
 require 'uri'
 
@@ -44,29 +45,60 @@ module Ipmonitor
     ##
     # Checks if a resource is online (following redirects)
     def check_resource
-      conn = Faraday.new(
-        url: @url,
-        ssl: { verify: false },
-        headers: { 'User-Agent' => user_agent }
-      )
+      # https://github.com/lostisland/faraday-retry#usage
+      retry_options = {
+        max: 2,
+        interval: 0.05,
+        interval_randomness: 0.5,
+        backoff_factor: 2
+      }
+
+      # conn = Faraday.new do (
+      #   url: @url,
+      #   ssl: { verify: false },
+      #   headers: { 'User-Agent' => user_agent }
+      # )
+      conn = Faraday.new(@url, {ssl: { verify: false }}) do |f|
+        f.request :retry, retry_options
+        f.headers { 'User-Agent' => user_agent }
+        f.response :raise_error
+      end
       # https://www.rubydoc.info/gems/faraday-follow_redirects/0.3.0
       conn.use Faraday::FollowRedirects::Middleware
-
-      # conn.get do |request| # this is slow and gets the entire request
-      conn.head do |request|
-        # TODO: set these options dynamically
-        request.options.timeout      = 5
-        request.options.open_timeout = 5
-      end
-    rescue Faraday::ConnectionFailed
-      # @options[status: 800]
-      raise Ipmonitor::Exceptions::ResourceFail, message: 'Connection failed', url: conn.url_prefix.to_s, status: 800
-    rescue Faraday::TimeoutError
-      # @response = Ipmonitor::Response.new({status: 801})
-      raise Ipmonitor::Exceptions::ResourceFail, message: 'Connection timeout', url: conn.url_prefix.to_s, status: 801
-      # rescue Faraday::OpenTimeoutError
+      
+      begin
+        # conn.get do |request| # this is slow and gets the entire request
+        conn.head do |request|
+          # TODO: set these options dynamically
+          request.options.timeout      = 5
+          request.options.open_timeout = 5
+        end
+        # https://lostisland.github.io/faraday/middleware/raise-error
+        # TODO: map error responses into it's own class to map ResourceFail to messages
+      rescue Faraday::BadRequestError
+        raise Ipmonitor::Exceptions::ResourceFail, message: 'Bad Request', url: conn.url_prefix.to_s, status: 400
+      rescue Faraday::UnauthorizedError
+        raise Ipmonitor::Exceptions::ResourceFail, message: 'Unauthorized', url: conn.url_prefix.to_s, status: 401
+      rescue Faraday::ForbiddenError
+        raise Ipmonitor::Exceptions::ResourceFail, message: 'Forbidden', url: conn.url_prefix.to_s, status: 403
+      rescue Faraday::ResourceNotFound
+        raise Ipmonitor::Exceptions::ResourceFail, message: 'Not Found', url: conn.url_prefix.to_s, status: 404
+      rescue Faraday::ProxyAuthError
+        raise Ipmonitor::Exceptions::ResourceFail, message: 'Proxy Auth Error', url: conn.url_prefix.to_s, status: 407
+      rescue Faraday::ConflictError
+        raise Ipmonitor::Exceptions::ResourceFail, message: 'Conflict Error', url: conn.url_prefix.to_s, status: 409
+      rescue Faraday::UnprocessableEntityError
+        raise Ipmonitor::Exceptions::ResourceFail, message: 'Conflict Error', url: conn.url_prefix.to_s, status: 422
+      rescue Faraday::ConnectionFailed
+        # @options[status: 800]
+        raise Ipmonitor::Exceptions::ResourceFail, message: 'Connection failed', url: conn.url_prefix.to_s, status: 800
+      rescue Faraday::TimeoutError
+        # @response = Ipmonitor::Response.new({status: 801})
+        raise Ipmonitor::Exceptions::ResourceFail, message: 'Connection timeout', url: conn.url_prefix.to_s, status: 801
+      rescue Faraday::ServerError => e
       #   # @response.status = 504
-      #   raise Ipmonitor::Exception::ResourceFail, message: 'Server timeout', url: conn.url_prefix.to_s, status: 504
+        raise Ipmonitor::Exceptions::ResourceFail, message: 'Server Error', url: conn.url_prefix.to_s, status: e.response[:status]
+      end
     end
 
     ##
