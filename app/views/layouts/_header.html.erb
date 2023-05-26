@@ -1,42 +1,24 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <%= link_to 'Monitor', root_path, class: 'navbar-brand' %>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <%= link_to root_path, class: 'nav-link' do %>
-          Home
-           <%= (content_tag :span, "(current)", :class => "sr-only") if current_page?(root_path) %>
-         <% end %>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'Statistics', stats_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'Issues', issues_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'Verify R@R Resources', verify_rar_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'Verify DHC Resources', verify_dhc_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'Jobs', '/sidekiq', class: 'nav-link' %>
-      </li
-      >
-      <li class="nav-item">
-        <%= link_to 'Verify All', verify_all_path, class: 'nav-link' %>
-      </li>
-    </ul>
-    <!--
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form> -->
+<header class="p-3 text-bg-dark">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><%= link_to 'Home', root_path, class: 'nav-link px-2 text-white' %></li>
+        <li><%= link_to 'Statistics', stats_path, class: 'nav-link px-2 text-white' %></li>
+        <li><%= link_to 'Issues', issues_path, class: 'nav-link px-2 text-white' %></li>
+        <li><%= link_to 'Verify R@R Resources', verify_rar_path, class: 'nav-link px-2 text-white' %></li>
+        <li>
+          <%= link_to 'Verify R@R Resources', verify_rar_path, class: 'nav-link px-2 text-white' %>
+        </li>
+        <li>
+          <%= link_to 'Verify DHC Resources', verify_dhc_path, class: 'nav-link px-2 text-white' %>
+        </li>
+        <li>
+          <%= link_to 'Jobs', '/sidekiq', class: 'nav-link px-2 text-white' %>
+        </li>
+        <li>
+          <%= link_to 'Verify All', verify_all_path, class: 'nav-link px-2 text-white' %>
+        </li>
+      </ul>
+    </div>
   </div>
-</nav>
+</header>

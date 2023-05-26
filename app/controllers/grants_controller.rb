@@ -29,11 +29,11 @@ class GrantsController < ApplicationController
   def verify_resources
     @grant.resources.each do |resource|
       next unless resource.valid_url?
-
       ResourceValidatorJob.perform_later(resource) unless resource.restricted?
     end
 
-    # format.html { redirect_to action: 'show', notice: 'Grant was successfully created.' }
+    redirect_to @grant, notice: 'Resources successfully queued.'
+
   end
 
   # GET /grants/1

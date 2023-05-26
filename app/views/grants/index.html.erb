@@ -1,9 +1,12 @@
 
-  <p id="notice"><%= notice %></p>
-
-  <h1>Grants</h1>
-
-  <table
+<!-- 
+<div class="alert alert-primary" role="alert">
+  <p id="notice">
+    <%= notice %>
+  </p>
+</div>-->
+<h1>Grants</h1>
+<table
     class="table table-hover table-striped table-borderless"
     data-toggle="table"
     data-search="true"
@@ -14,37 +17,35 @@
     data-show-columns="true"
     data-pagination="false"
   >
-
-    <thead>
+  <thead>
+    <tr>
+      <th scope="col" data-sortable="true">Title</th>
+      <th scope="col" data-sortable="true">Institution</th>
+      <th scope="col" data-sortable="true">Total Assets</th>
+      <th scope="col" data-sortable="true">Online Assets</th>
+      <th scope="col" data-sortable="true">Score</th>
+      <th scope="col" data-sortable="true">Program</th>
+      <!-- <th scope="col">Contact</th> -->
+      <th scope="col" data-sortable="true">Date Submitted</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @grants.each do |grant| %>
       <tr>
-        <th scope="col" data-sortable="true">Title</th>
-        <th scope="col" data-sortable="true">Institution</th>
-        <th scope="col" data-sortable="true">Total Assets</th>
-        <th scope="col" data-sortable="true">Online Assets</th>
-        <th scope="col" data-sortable="true">Score</th>
-        <th scope="col" data-sortable="true">Program</th>
-        <!-- <th scope="col">Contact</th> -->
-        <th scope="col" data-sortable="true">Date Submitted</th>
-        <th scope="col">Actions</th>
+        <td><%= link_to grant.title, grant %></td>
+        <td><%= grant.institution %></td>
+        <td><%= grant.resources.size %></td>
+        <td><%= grant.online_resources_count %></td>
+        <td><%= number_to_percentage(grant.availability_score, precision: 2) %></td>
+        <td><%= grant.program %></td>
+        <!-- <td><%= mail_to grant.email, grant.contact %></td> -->
+        <td><%= grant.submission %></td>
+        <td>
+          <%= link_to 'Verify', grant, method: :verify_grant_resources_path, class: 'btn btn-success', data: { confirm: 'Are you sure?' }%>
+          <%#= link_to 'Destroy', grant, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
-    </thead>
-
-    <tbody>
-      <% @grants.each do |grant| %>
-        <tr>
-          <td><%= link_to grant.title, grant %></td>
-          <td><%= grant.institution %></td>
-          <td><%= grant.resources.size %></td>
-          <td><%= grant.online_resources_count %></td>
-          <td><%= number_to_percentage(grant.availability_score, precision: 2) %></td>
-          <td><%= grant.program %></td>
-          <!-- <td><%= mail_to grant.email, grant.contact %></td> -->
-          <td><%= grant.submission %></td>
-          <td>
-              <%= link_to 'Verify', grant, method: :verify_grant_resources_path, class: 'btn btn-success', data: { confirm: 'Are you sure?' }%>
-              <%#= link_to 'Destroy', grant, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+    <% end %>
+  </tbody>
+</table>
