@@ -23,7 +23,8 @@ namespace :iiif do
           grant_number: manifest['clir_grant_number'],
           contact: manifest['contact_name'],
           email: manifest['contact_email'],
-          submission: manifest['submission_date']
+          submission: manifest['submission_date'],
+          filename: manfiest['iiif_manifest_url']
         }
       )
 
