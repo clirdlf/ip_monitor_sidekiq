@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -60,6 +62,10 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
 
+  gem 'rubocop', '~> 1.51'
+  gem 'rubocop-capybara', '~> 2.18'
+  gem 'rubocop-rails', '~> 2.19'
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
@@ -74,30 +80,14 @@ group :test do
   gem 'webdrivers'
 end
 
-gem 'sidekiq', '~> 7.1'
-
-gem 'pagy', '~> 6.0'
-
-gem 'faraday', '~> 2.7'
-
-gem 'chronic', '~> 0.10.2'
-
-gem 'colorize', '~> 0.8.1'
-
-gem 'roo', '~> 2.10'
-
 gem 'boolean', '~> 1.0'
-
+gem 'chronic', '~> 0.10.2'
+gem 'colorize', '~> 0.8.1'
+gem 'faraday', '~> 2.7'
 gem 'faraday-follow_redirects', '~> 0.3.0'
-
-gem 'rubocop', '~> 1.51'
-
-gem 'to_bool', '~> 2.0'
-
+gem 'faraday-retry', '~> 2.1'
+gem 'pagy', '~> 6.0'
 gem 'rails-erd', '~> 1.7'
-
-gem 'iiif-presentation', '~> 1.1'
-
-gem 'rubocop-rails', '~> 2.19'
-
-gem 'rubocop-capybara', '~> 2.18'
+gem 'roo', '~> 2.10'
+gem 'sidekiq', '~> 7.1'
+gem 'to_bool', '~> 2.0'
