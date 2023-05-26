@@ -27,10 +27,15 @@ class GrantsController < ApplicationController
 
   # Verify for a specfic grant
   def verify_resources
-    @grant.resources.each do |resource|
-      next unless resource.valid_url?
-      ResourceValidatorJob.perform_later(resource) unless resource.restricted?
+    # @see https://andycroll.com/ruby/enqueue-jobs-quickly-with-sidekiq-bulk/
+    @grant.resources.in_batches do |resource|
+      array_of_args = resource.ids.map { |x| [x] }
+      ResourceValidatorJob.perform_bulk(array_of_args)
     end
+    # @grant.resources.each do |resource|
+    #   next unless resource.valid_url?
+    #   ResourceValidatorJob.perform_later(resource) unless resource.restricted?
+    # end
 
     redirect_to @grant, notice: 'Resources successfully queued.'
 
