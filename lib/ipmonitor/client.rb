@@ -58,14 +58,14 @@ module Ipmonitor
       #   ssl: { verify: false },
       #   headers: { 'User-Agent' => user_agent }
       # )
-      conn = Faraday.new(@url, {ssl: { verify: false }}) do |f|
+      conn = Faraday.new(@url, { ssl: { verify: false } }) do |f|
         f.request :retry, retry_options
         f.headers { 'User-Agent' => user_agent }
         f.response :raise_error
       end
       # https://www.rubydoc.info/gems/faraday-follow_redirects/0.3.0
       conn.use Faraday::FollowRedirects::Middleware
-      
+
       begin
         # conn.get do |request| # this is slow and gets the entire request
         conn.head do |request|
@@ -96,8 +96,9 @@ module Ipmonitor
         # @response = Ipmonitor::Response.new({status: 801})
         raise Ipmonitor::Exceptions::ResourceFail, message: 'Connection timeout', url: conn.url_prefix.to_s, status: 801
       rescue Faraday::ServerError => e
-      #   # @response.status = 504
-        raise Ipmonitor::Exceptions::ResourceFail, message: 'Server Error', url: conn.url_prefix.to_s, status: e.response[:status]
+        #   # @response.status = 504
+        raise Ipmonitor::Exceptions::ResourceFail, message: 'Server Error', url: conn.url_prefix.to_s,
+                                                   status: e.response[:status]
       end
     end
 

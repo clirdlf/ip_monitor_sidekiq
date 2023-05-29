@@ -13,7 +13,7 @@ class ResourcesController < ApplicationController
     # AND access_url LIKE 'http%
     @resources = Resource.order(Arel.sql('RANDOM()')).where('restricted IS false AND access_url LIKE \'http%\' LIMIT 10')
 
-      # TODO: DRY
+    # TODO: DRY
     @resources.in_batches do |resource|
       array_of_args = resource.ids.map { |x| [x] }
       ResourceValidatorJob.perform_bulk(array_of_args) unless resource.restricted?
@@ -29,7 +29,7 @@ class ResourcesController < ApplicationController
   def verify_grant
     @resources = Resource.find(params[:grant_id])
 
-    @resources.in_batches do | resource | 
+    @resources.in_batches do |resource|
       array_of_args = resource.ids.map { |x| [x] }
       ResourceValidatorJob.perform_bulk(array_of_args) unless resource.restricted?
     end
@@ -39,7 +39,6 @@ class ResourcesController < ApplicationController
 
     #   ResourceValidatorJob.perform_later(resource) unless resource.restricted?
     # end
-
   end
 
   def verify_rar
