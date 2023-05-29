@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Manifest
   def initialize(file)
     @manifest = Roo::Spreadsheet.open(file, headers: true)

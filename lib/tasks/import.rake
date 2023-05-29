@@ -41,7 +41,7 @@ namespace :import do
 
       manifest.resources.each do |resource|
         # restriction = ActiveModel::Type::Boolean.new.cast(resource[:restricted])
-        next unless !(resource[:checksum] == 'CHECKSUM') && !resource[:restricted].nil? && !resource[:restricted].nil?
+        next unless resource[:checksum] != 'CHECKSUM' && !resource[:restricted].nil? && !resource[:restricted].nil?
 
         Resource.find_or_create_by(
           {
