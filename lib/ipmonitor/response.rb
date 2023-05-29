@@ -2,6 +2,8 @@
 
 # see https://github.com/geoblacklight/geomonitor/blob/master/lib/geomonitor/response.rb
 module Ipmonitor
+  ##
+  # Server response
   class Response
     attr_reader :status, :response_code, :body, :request_url
 

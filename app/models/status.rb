@@ -32,7 +32,7 @@ class Status < ApplicationRecord
   # status.
   # @param [Status]
   def new_status_different?(previous)
-    return true unless previous.present?
+    return true if previous.blank?
 
     status != previous.status
   end

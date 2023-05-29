@@ -11,7 +11,7 @@ class GrantsController < ApplicationController
   def index
     respond_to do |format|
       format.html
-      format.csv { send_data @grants.to_csv, filename: "resource-status-#{Date.today}.csv" }
+      format.csv { send_data @grants.to_csv, filename: "resource-status-#{Time.zone.today}.csv" }
     end
   end
 
@@ -30,7 +30,9 @@ class GrantsController < ApplicationController
     # @see https://andycroll.com/ruby/enqueue-jobs-quickly-with-sidekiq-bulk/
 
     # query only objects that are valid AND are not restricted
-    @grant.resources.in_batches do |resource|
+    @resources = @grant.resources.where('restricted is false and access_url LIKE \'http%\'')
+
+    @resources.in_batches do |resource|
       array_of_args = resource.ids.map { |x| [x] }
       ResourceValidatorJob.perform_bulk(array_of_args)
     end
@@ -39,7 +41,7 @@ class GrantsController < ApplicationController
     #   ResourceValidatorJob.perform_later(resource) unless resource.restricted?
     # end
 
-    redirect_to @grant, notice: 'Resources successfully queued.'
+    redirect_to @grant, notice: "#{@resources.size} resources successfully queued."
   end
 
   # GET /grants/1

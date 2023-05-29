@@ -26,7 +26,7 @@ module Ipmonitor
     # Create a new response for the resource
     # @return [Ipmonitor::Response]
     def create_response
-      @start_time = Time.now
+      @start_time = Time.zone.now
 
       begin
         response = check_resource
@@ -34,12 +34,13 @@ module Ipmonitor
         response = e
       end
 
-      @end_time = Time.now
+      @end_time = Time.zone.now
       Ipmonitor::Response.new(response)
     end
 
     def user_agent
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+      # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
+      'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'
     end
 
     ##
@@ -70,8 +71,8 @@ module Ipmonitor
         # conn.get do |request| # this is slow and gets the entire request
         conn.head do |request|
           # TODO: set these options dynamically
-          request.options.timeout      = 5
-          request.options.open_timeout = 5
+          # request.options.timeout      = 5
+          # request.options.open_timeout = 5
         end
         # https://lostisland.github.io/faraday/middleware/raise-error
         # TODO: map error responses into it's own class to map ResourceFail to messages

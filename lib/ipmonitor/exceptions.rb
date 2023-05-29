@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 module Ipmonitor
+  ##
+  # Custom client exceptions
   class Exceptions
+    ##
+    # Resource Fail Error (e.g. 5xx errors)
     class ResourceFail < StandardError
       def initialize(options = {})
         @options = options

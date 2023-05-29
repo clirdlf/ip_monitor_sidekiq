@@ -34,6 +34,7 @@ namespace :import do
           grant_number: manifest.grant_number,
           contact: manifest.contact,
           email: manifest.email,
+          program: manifest.program,
           submission: manifest.submission,
           filename:
         }

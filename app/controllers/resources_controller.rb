@@ -4,7 +4,7 @@
 # Resources controller
 class ResourcesController < ApplicationController
   before_action :set_grant, only: %i[edit status update destroy]
-  before_action :set_resource, only: %i[show verify]
+  before_action :set_resource, only: %i[show]
 
   def verify_all
     # TODO: filter only non-restricted resources
@@ -94,7 +94,7 @@ class ResourcesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @resources.to_csv, filename: "grant-resources-#{Date.today}.csv" }
+      format.csv { send_data @resources.to_csv, filename: "grant-resources-#{Time.zone.today}.csv" }
     end
   end
 

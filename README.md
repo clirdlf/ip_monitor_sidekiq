@@ -45,21 +45,21 @@ These should be added to Box.
 
 ### Find Duplicates
 
-    ```sql
-  SELECT title, count(*)
-  from grants
-  group by title
-  having count(*) > 1;
-    ```
+```sql
+SELECT title, count(*)
+from grants
+group by title
+having count(*) > 1;
+```
 
 ## Clean HTML
 
-    ```sql
-    UPDATE resources 
-    SET access_url = regexp_replace(access_url, '<[^>]*>', '', 'g')
-    WHERE grant_id = 95
-    AND access_url LIKE '<html>%';
-    ```
+```sql
+UPDATE resources 
+SET access_url = regexp_replace(access_url, '<[^>]*>', '', 'g')
+WHERE grant_id = 95
+AND access_url LIKE '<html>%';
+```
 
 ## Sidekiq
 

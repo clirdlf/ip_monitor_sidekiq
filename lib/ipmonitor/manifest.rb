@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Manifest file for mapping to data model
 class Manifest
   def initialize(file)
     @manifest = Roo::Spreadsheet.open(file, headers: true)
@@ -100,6 +102,8 @@ class Manifest
   end
 end
 
+##
+# Manifest Validation Error
 class ValidationError < StandardError
   attr_reader :action
 
