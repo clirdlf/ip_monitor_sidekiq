@@ -1,6 +1,6 @@
 # IP Monitor
 
-This is a reimplementation of the IP Monitor [CLIR](https://www.clir.org) uses to validate and study access to online resources digitized in its various programs ([Digitizing Hidden Collections](https://www.clir.org/hiddencollections/) and [Recordings at Risk](https://www.clir.org/recordings-at-risk/)). The approach is to collect information about where the objects can be viewed online (along with other useful technical metadata) to check the server header response (and not download the reponse body) to check the "health" of the online resources.
+This is a reimplementation of the IP Monitor [CLIR](https://www.clir.org) uses to validate and study access to online resources digitized in its various programs ([Digitizing Hidden Collections](https://www.clir.org/hiddencollections/) and [Recordings at Risk](https://www.clir.org/recordings-at-risk/)). The approach is to collect information about where the objects can be viewed online (along with other useful technical metadata) to check the server header response (and not download the response body) to check the "health" of the online resources.
 
 This application uses [Ruby on Rails](https://rubyonrails.org/) as a web frontend with [Bootstrap](https://getbootstrap.com/) providing the front-end tooling; [Postgresql](https://www.postgresql.org/) as a data persistence layer; [SideKiq](https://github.com/sidekiq/sidekiq) as its queuing system on top of the in-memory data store [Redis](https://redis.io/). Manifests are converted rom Excel spreadsheets using `rake` tasks and `Resources` are loaded into the queue in random order to ensure no single server sustains a high number of requests (and helps with throttling).
 
@@ -21,7 +21,7 @@ This migrates away from [Resque](https://github.com/resque/resque) for two main 
 
 * Add entry to `lib/manifests-iiif/manifests.csv`
 
-There is a seperate set of rake tasts (`rake -T iiif`) for managing IIIF manifests.
+There is a separate set of rake tasks (`rake -T iiif`) for managing IIIF manifests.
 
 ## Manual Testing
 
@@ -40,6 +40,10 @@ These should be added to Box.
 ## Restore
 
     gunzip -c latest.sql.gz | psql ip_monitor_sidekiq_development
+ 
+## Data 
+
+These are stored in Box after being submitted <https://clir-dlf.box.com/s/lbl1nd7v3wd1ijam16zg37wc5b7tjg1y>
 
 ## SQL
 
