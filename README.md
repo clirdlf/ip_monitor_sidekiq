@@ -12,7 +12,7 @@ This migrates away from [Resque](https://github.com/resque/resque) for two main 
 
 ## Adding Manifests
 
-* Save the Excel spreadsheets of the manifiests collected by institutions into `lib/manifests`.
+* Save the Excel spreadsheets of the manifiests collected by institutions into `open lib/manifests`.
 * **Validate** the manifests (`rails import:validate`)
 * **Import** the manifests into the database (`rails import:manifests`)
 * Start the app container (`foreman start`)
@@ -39,7 +39,15 @@ These should be added to Box.
 
 ## Restore
 
+    rails db:drop
+    rails db:create
     gunzip -c latest.sql.gz | psql ip_monitor_sidekiq_development
+
+or
+
+    rails db:drop
+    rails db:create
+    psql ip_monitor_sidekiq_development < latest.sql
  
 ## Data 
 
@@ -82,6 +90,4 @@ There are resources getting Faraday::ConnectionTimeout errors; these should be r
 
 <https://github.com/sidekiq/sidekiq/issues/4558>
 
-## Notes
 
-- Update startup in `Procfile`
