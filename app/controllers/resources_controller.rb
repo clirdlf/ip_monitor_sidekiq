@@ -11,12 +11,13 @@ class ResourcesController < ApplicationController
     # @resources = Resource.order(Arel.sql('RANDOM()')).where('statuses_count IS NULL')
     # WHERE restricted IS FALSE
     # AND access_url LIKE 'http%
-    @resources = Resource.order(Arel.sql('RANDOM()')).where('restricted IS false AND access_url LIKE \'http%\' LIMIT 10')
+    @resources = Resource.where('restricted IS false AND access_url LIKE \'http%\'').order('RANDOM()').limit(50)
+    # @resources = Resource.order(Arel.sql('RANDOM()')).where('restricted IS false AND access_url LIKE \'http%\' LIMIT 10')
 
     # TODO: DRY
     @resources.in_batches do |resource|
       array_of_args = resource.ids.map { |x| [x] }
-      ResourceValidatorJob.perform_bulk(array_of_args) unless resource.restricted?
+      ResourceValidatorJob.perform_bulk(array_of_args)
     end
     # @resources.each do |r|
     #   next unless r.valid_url?
