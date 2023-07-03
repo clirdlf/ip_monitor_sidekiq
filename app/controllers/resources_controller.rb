@@ -11,7 +11,7 @@ class ResourcesController < ApplicationController
     # @resources = Resource.order(Arel.sql('RANDOM()')).where('statuses_count IS NULL')
     # WHERE restricted IS FALSE
     # AND access_url LIKE 'http%
-    @resources = Resource.where('restricted IS false AND access_url LIKE \'http%\'').order('RANDOM()').limit(50)
+    @resources = Resource.where('restricted IS false AND access_url LIKE \'http%\'').order('RANDOM()')
     # @resources = Resource.order(Arel.sql('RANDOM()')).where('restricted IS false AND access_url LIKE \'http%\' LIMIT 10')
 
     # TODO: DRY
