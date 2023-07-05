@@ -24,7 +24,7 @@
         <span class="mb-2 d-xl-inline-block d-block ml-xl-4"><i class="fa fa-envelope mr-2 mb-2"></i> <%= mail_to @grant.email, @grant.contact %></span>
         <span class="mb-2 ml-xl-4 d-xl-inline-block d-block "><i class="fa fa-calendar mr-2 mb-2"></i> <strong>Submitted:</strong> <%= @grant.submission %></span>
         <span class="mb-2 ml-xl-4 d-xl-inline-block d-block "><strong>Program:</strong> <%= @grant.program %></span>
-        <span class="mb-2 ml-xl-4 d-xl-inline-block d-block "><i class="fa fa-file-excel mr-2 mb-2"></i> <strong>Filename:</strong> <%= @grant.filename %></span>
+        <span class="mb-2 ml-xl-4 d-xl-inline-block d-block "><i class="fa fa-file-excel mr-2 mb-2"></i> <strong>Filename:</strong> lib/manifests/<%= @grant.filename %></span>
       </p>
     </div>
   </div>

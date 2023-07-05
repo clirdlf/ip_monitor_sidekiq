@@ -25,3 +25,9 @@ main {
     background-color: #ffc107 !important;
     color: #fff;
 }
+
+@media print {
+    header {
+        display: none !important;
+    }
+}
