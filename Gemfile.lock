@@ -91,6 +91,7 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.1.2)
       railties (>= 6.0.0)
+    curb (1.0.5)
     date (3.3.3)
     debug (1.8.0)
       irb (>= 1.5.0)
@@ -309,6 +310,7 @@ DEPENDENCIES
   chronic (~> 0.10.2)
   colorize (~> 0.8.1)
   cssbundling-rails
+  curb (~> 1.0)
   debug
   factory_bot_rails (~> 6.2)
   faker (~> 3.2)
@@ -340,7 +342,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 3.2.0p0
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.4.13
