@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
+gem 'rails', '~> 7.1'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -15,7 +15,7 @@ gem 'sprockets-rails'
 gem 'pg', '~> 1.1'
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 6.0'
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem 'jsbundling-rails'
@@ -33,7 +33,9 @@ gem 'cssbundling-rails'
 gem 'jbuilder'
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 4.0'
+gem 'redis', '~> 5.0'
+
+gem 'foreman'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem 'kredis'
@@ -86,10 +88,10 @@ end
 
 gem 'boolean', '~> 1.0'
 gem 'chronic', '~> 0.10.2'
-gem 'colorize', '~> 0.8.1'
+gem 'colorize', '~> 1.1'
 gem 'faraday', '~> 2.7'
 gem 'faraday-follow_redirects', '~> 0.3.0'
-gem 'faraday-retry', '~> 2.1'
+gem 'faraday-retry', '~> 2.2'
 gem 'pagy', '~> 6.0'
 gem 'rails-erd', '~> 1.7'
 gem 'roo', '~> 2.10'
