@@ -6,7 +6,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
+# gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
+gem 'rails', '~> 7.1'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -15,7 +16,8 @@ gem 'sprockets-rails'
 gem 'pg', '~> 1.1'
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem 'puma', '~> 5.0'
+# gem 'puma', '~> 5.0'
+gem 'puma', '~> 6.4'
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem 'jsbundling-rails'
@@ -33,7 +35,7 @@ gem 'cssbundling-rails'
 gem 'jbuilder'
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 4.0'
+gem 'redis', '~> 5.1'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem 'kredis'
@@ -65,8 +67,8 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
 
-  gem 'rubocop', '~> 1.51'
-  gem 'rubocop-capybara', '~> 2.18'
+  gem 'rubocop', '~> 1.61'
+  gem 'rubocop-capybara', '~> 2.20'
   gem 'rubocop-rails', '~> 2.19'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
@@ -86,11 +88,11 @@ end
 
 gem 'boolean', '~> 1.0'
 gem 'chronic', '~> 0.10.2'
-gem 'colorize', '~> 0.8.1'
+gem 'colorize', '~> 1.1'
 gem 'faraday', '~> 2.7'
 gem 'faraday-follow_redirects', '~> 0.3.0'
 gem 'faraday-retry', '~> 2.1'
-gem 'pagy', '~> 6.0'
+gem 'pagy', '~> 8.0'
 gem 'rails-erd', '~> 1.7'
 gem 'roo', '~> 2.10'
 gem 'sidekiq', '~> 7.1'
