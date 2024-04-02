@@ -6,6 +6,19 @@ This application uses [Ruby on Rails](https://rubyonrails.org/) as a web fronten
 
 This migrates away from [Resque](https://github.com/resque/resque) for two main reasons: 1) Performance and 2) Development intertia. Sidekiq is multi-threaded (compared to Resque's single-threaded fork processes). When running checks on hundreds of thousands of URLs, this allows a much lower memory footprint when parallelizing jobs (Sidekiq doesn't require 20 processes for 20 jobs; just one process with 20 threads). Secondly, the WebUI for SideKiq is supported without another gem (which had dependencies that are no longer shipping with Rails and made more difficult to maintain).
 
+## Setup
+
+```
+rvm use 3.2.2 --default
+brew install postgresql redis curl
+bundle install
+echo 'export PATH="/opt/homebrew/opt/curl/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+brew services start postgresql@14
+rake db:create
+npm install
+```
+
 ## Interface
 
     foreman start
