@@ -15,6 +15,7 @@ bundle install
 echo 'export PATH="/opt/homebrew/opt/curl/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 brew services start postgresql@14
+brew services start redis
 rake db:create
 npm install
 ```

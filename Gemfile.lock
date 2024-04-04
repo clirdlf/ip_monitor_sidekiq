@@ -346,6 +346,7 @@ DEPENDENCIES
   cssbundling-rails
   curb (~> 1.0)
   debug
+  factory_bot (~> 6.4)
   factory_bot_rails (~> 6.2)
   faker (~> 3.2)
   faraday (~> 2.7)
