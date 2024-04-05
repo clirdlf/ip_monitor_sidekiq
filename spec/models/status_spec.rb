@@ -11,4 +11,8 @@ RSpec.describe Status, type: :model do
   it "has a valid factory" do
     expect(@resource).to be_valid
   end
+
+  it "gets a latest status" do
+    expect(@status.latest).to be_truthy
+  end
 end
