@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Status, type: :model do
 
   before(:each) do 
-    @grant = create(:grant)
+    # @grant = create(:grant)
+    @resource = create(:resource)
     @status = create(:status)
   end
 

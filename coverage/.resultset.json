@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/spec/models/grant_spec.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/spec/models/grant_spec.rb": {
         "lines": [
           1,
           null,
@@ -57,7 +57,7 @@
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/spec/rails_helper.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/spec/rails_helper.rb": {
         "lines": [
           null,
           1,
@@ -126,7 +126,7 @@
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/config/environment.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/config/environment.rb": {
         "lines": [
           null,
           null,
@@ -137,7 +137,7 @@
           1
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/config/application.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/config/application.rb": {
         "lines": [
           null,
           null,
@@ -174,7 +174,7 @@
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/config/boot.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/config/boot.rb": {
         "lines": [
           null,
           null,
@@ -184,7 +184,7 @@
           1
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/config/environments/test.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/config/environments/test.rb": {
         "lines": [
           null,
           null,
@@ -250,7 +250,7 @@
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/config/initializers/assets.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/config/initializers/assets.rb": {
         "lines": [
           null,
           null,
@@ -269,7 +269,7 @@
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/config/initializers/content_security_policy.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/config/initializers/content_security_policy.rb": {
         "lines": [
           null,
           null,
@@ -280,41 +280,6 @@
           null,
           null,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/config/initializers/filter_parameter_logging.rb": {
-        "lines": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          null,
-          null
-        ]
-      },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/config/initializers/inflections.rb": {
-        "lines": [
           null,
           null,
           null,
@@ -334,7 +299,42 @@
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/config/initializers/permissions_policy.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/config/initializers/filter_parameter_logging.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/wgraham/projects/ip_monitor_sidekiq/config/initializers/inflections.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/wgraham/projects/ip_monitor_sidekiq/config/initializers/permissions_policy.rb": {
         "lines": [
           null,
           null,
@@ -350,52 +350,53 @@
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/spec/factories/grants.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/spec/factories/grants.rb": {
         "lines": [
           1,
           1,
-          11,
-          11,
           12,
-          11,
-          11,
-          11,
           12,
-          11,
+          13,
+          12,
+          12,
+          12,
+          13,
+          12,
           null,
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/spec/factories/resources.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/spec/factories/resources.rb": {
         "lines": [
           1,
           1,
           1,
-          4,
-          4,
-          4,
-          4,
-          4,
-          4,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
           null,
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/spec/factories/statuses.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/spec/factories/statuses.rb": {
         "lines": [
           1,
           1,
           null,
+          1,
           null,
-          null,
-          null,
-          null,
+          2,
+          2,
+          2,
           null,
           null,
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/config/routes.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/config/routes.rb": {
         "lines": [
           null,
           null,
@@ -429,35 +430,7 @@
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/app/helpers/application_helper.rb": {
-        "lines": [
-          null,
-          null,
-          null,
-          null,
-          1,
-          1,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          0,
-          null,
-          null
-        ]
-      },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/spec/support/factory_bot.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          null
-        ]
-      },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/app/models/grant.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/app/helpers/application_helper.rb": {
         "lines": [
           null,
           null,
@@ -465,6 +438,34 @@
           null,
           1,
           1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/wgraham/projects/ip_monitor_sidekiq/spec/support/factory_bot.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/wgraham/projects/ip_monitor_sidekiq/app/models/grant.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
           1,
           1,
           1,
@@ -517,7 +518,7 @@
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/app/models/application_record.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/app/models/application_record.rb": {
         "lines": [
           null,
           null,
@@ -528,7 +529,7 @@
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/spec/models/resource_spec.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/spec/models/resource_spec.rb": {
         "lines": [
           1,
           null,
@@ -556,7 +557,7 @@
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/app/models/resource.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/app/models/resource.rb": {
         "lines": [
           null,
           null,
@@ -665,24 +666,25 @@
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/spec/models/status_spec.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/spec/models/status_spec.rb": {
         "lines": [
           1,
           null,
           1,
           null,
           1,
+          null,
           1,
           1,
           null,
           null,
           1,
-          0,
+          1,
           null,
           null
         ]
       },
-      "/Users/waynegraham/projects/ip_monitor_sidekiq/app/models/status.rb": {
+      "/Users/wgraham/projects/ip_monitor_sidekiq/app/models/status.rb": {
         "lines": [
           null,
           null,
@@ -726,6 +728,6 @@
         ]
       }
     },
-    "timestamp": 1712236500
+    "timestamp": 1712333485
   }
 }

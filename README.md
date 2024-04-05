@@ -9,7 +9,7 @@ This migrates away from [Resque](https://github.com/resque/resque) for two main 
 ## Setup
 
 ```
-rvm use 3.2.2 --default
+rvm use 3.3.0 --default
 brew install postgresql redis curl
 bundle install
 echo 'export PATH="/opt/homebrew/opt/curl/bin:$PATH"' >> ~/.zshrc
@@ -62,7 +62,7 @@ or
     rails db:drop
     rails db:create
     psql ip_monitor_sidekiq_development < latest.sql
- 
+
 ## Data 
 
 These are stored in Box after being submitted <https://clir-dlf.box.com/s/lbl1nd7v3wd1ijam16zg37wc5b7tjg1y>
