@@ -4,9 +4,6 @@ RSpec.describe Resource, type: :model do
 
   before(:each) do 
     @resource = create(:resource)
-
-    # let(:statuses) { create_list(:status, 10)}
-    # @invalid_resource = create(:invalid_resource)
   end
 
   it 'has a valid factory' do
