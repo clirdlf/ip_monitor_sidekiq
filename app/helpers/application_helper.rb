@@ -3,6 +3,8 @@
 ##
 # Application Helpfer methods
 module ApplicationHelper
+  include Pagy::Frontend
+
   def flash_class(level)
     alerts = {
       'notice' => 'alert alert-info',

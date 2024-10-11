@@ -50,6 +50,11 @@
   </div>
 </div>
 
+<div class="my-5">
+<%# Render a view helper in your views (skipping nav links for empty pages) %>
+<%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+</div>
+
 <table
   class="table table-hover table-striped table-borderless"
   data-toggle="table"
@@ -73,7 +78,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @grant.resources.each do |resource| %>
+    <% @resources.each do |resource| %>
       <tr>
         <td>
           <%= link_to 'Run Check', resource_run_check_path(resource.grant, resource), class: 'btn btn-primary' %>
@@ -114,6 +119,11 @@
   </tbody>
 
 </table>
+
+<div class="my-5">
+<%# Render a view helper in your views (skipping nav links for empty pages) %>
+<%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+</div>
 
 
 <%= link_to 'Edit', edit_grant_path(@grant) %> |

@@ -101,10 +101,12 @@ class GrantsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_grant
     @grant = Grant.find(params[:id])
+    @pagy, @resources = pagy(@grant.resources)
   end
 
   def set_grants
-    @grants = Grant.all
+    # @grants = Grant.all
+    @pagy, @grants = pagy(Grant.all)
   end
 
   # Only allow a list of trusted parameters through.
