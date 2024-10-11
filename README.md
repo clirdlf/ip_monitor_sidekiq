@@ -6,10 +6,44 @@ This application uses [Ruby on Rails](https://rubyonrails.org/) as a web fronten
 
 This migrates away from [Resque](https://github.com/resque/resque) for two main reasons: 1) Performance and 2) Development intertia. Sidekiq is multi-threaded (compared to Resque's single-threaded fork processes). When running checks on hundreds of thousands of URLs, this allows a much lower memory footprint when parallelizing jobs (Sidekiq doesn't require 20 processes for 20 jobs; just one process with 20 threads). Secondly, the WebUI for SideKiq is supported without another gem (which had dependencies that are no longer shipping with Rails and made more difficult to maintain).
 
+## Idea
+
+Loading the data take a long time as there is single thread to do an upsert one at a time. One path to pursue to speed this is would be to create an intermediate representation of the `Resource` objects. This would be a JSON representation written to disk in batches of up 1000 records. Then, run `upsert_all` on the array to add them in batches of 1000 (or more). 
+
+https://blog.saeloun.com/2022/07/26/rails-6-insert-all/
+
+
+```ruby
+result = Resource.upsert_all(
+    [
+        {
+            access_filename: "foo",
+            access_url: "https://foo.edu",
+            checksum: "dlakajf323fa",
+            restricted: false,
+            grant_id: 1,
+        },
+        {
+            access_filename: "bar",
+            access_url: "https://bar.edu",
+            checksum: "fa32pmvl23",
+            restricted: true,
+            grant_id: 1,
+        }
+    ],
+    unique_by: :access_url
+)
+```
+
+
+Check the `:unique_by` field 
+
+https://blog.kiprosh.com/rails-7-adds-new-options-to-upsert_all/
+
 ## Setup
 
-```
-rvm use 3.3.0 --default
+```bash
+rvm use 3.3.5 --default
 brew install postgresql redis curl
 bundle install
 echo 'export PATH="/opt/homebrew/opt/curl/bin:$PATH"' >> ~/.zshrc
@@ -22,13 +56,15 @@ npm install
 
 ## Interface
 
-    foreman start
+```bash
+foreman start
+```
 
 ## Adding Manifests
 
 * Save the Excel spreadsheets of the manifiests collected by institutions into `open lib/manifests`.
-* **Validate** the manifests (`rails import:validate`)
-* **Import** the manifests into the database (`rails import:manifests`)
+* **Validate** the manifests (`rails -m import:validate`)
+* **Import** the manifests into the database (`rails -m import:manifests`)
 * Start the app container (`foreman start`)
 
 ## Adding IIIF Manifests
@@ -63,7 +99,7 @@ or
     rails db:create
     psql ip_monitor_sidekiq_development < latest.sql
 
-## Data 
+## Data
 
 These are stored in Box after being submitted <https://clir-dlf.box.com/s/lbl1nd7v3wd1ijam16zg37wc5b7tjg1y>
 
@@ -81,7 +117,7 @@ having count(*) > 1;
 ## Clean HTML
 
 ```sql
-UPDATE resources 
+UPDATE resources
 SET access_url = regexp_replace(access_url, '<[^>]*>', '', 'g')
 WHERE grant_id = 95
 AND access_url LIKE '<html>%';

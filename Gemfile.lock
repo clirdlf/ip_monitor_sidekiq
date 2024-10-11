@@ -365,7 +365,7 @@ DEPENDENCIES
   rubocop-capybara (~> 2.20)
   rubocop-rails (~> 2.19)
   selenium-webdriver
-  sidekiq (~> 7.1)
+  sidekiq (~> 7.3)
   simplecov
   sprockets-rails
   stimulus-rails
@@ -376,7 +376,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 3.3.0p0
+   ruby 3.3.5p100
 
 BUNDLED WITH
    2.4.10
