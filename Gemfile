@@ -100,3 +100,6 @@ gem 'sidekiq', '~> 7.3'
 gem 'to_bool', '~> 2.0'
 
 gem 'curb', '~> 1.0'
+
+gem "solargraph", "~> 0.48.0"
+gem "ruby-lsp", "~> 0.20.0"
