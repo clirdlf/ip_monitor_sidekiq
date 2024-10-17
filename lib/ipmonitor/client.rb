@@ -71,8 +71,8 @@ module Ipmonitor
         # conn.get do |request| # this is slow and gets the entire request
         conn.head do |request|
           # TODO: set these options dynamically
-          request.options.timeout      = 10
-          request.options.open_timeout = 10
+          request.options.timeout      = 90
+          request.options.open_timeout = 90
         end
         # https://lostisland.github.io/faraday/middleware/raise-error
         # TODO: map error responses into it's own class to map ResourceFail to messages
@@ -116,7 +116,7 @@ module Ipmonitor
     # Returns timeout for the external request
     # @return [Fixnum] request timeout in seconds
     def timeout
-      @options[:timeout] || 5
+      @options[:timeout] || 10
     end
   end
 end
