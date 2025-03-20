@@ -32,7 +32,7 @@ class ResourcesController < ApplicationController
 
     @resources.in_batches do |resource|
       array_of_args = resource.ids.map { |x| [x] }
-      ResourceValidatorJob.perform_bulk(array_of_args) unless resource.restricted?
+      ResourceValidatorJob.perform_bulk(array_of_args)
     end
 
     # @resources.each do |resource|
@@ -49,7 +49,7 @@ class ResourcesController < ApplicationController
 
     @resources.in_batches do |resource|
       array_of_args = resource.ids.map { |x| [x] }
-      ResourceValidatorJob.perform_bulk(array_of_args) unless resource.restricted?
+      ResourceValidatorJob.perform_bulk(array_of_args)
     end
 
     # @resources.each do |resource|
@@ -66,7 +66,7 @@ class ResourcesController < ApplicationController
 
     @resources.in_batches do |resource|
       array_of_args = resource.ids.map { |x| [x] }
-      ResourceValidatorJob.perform_bulk(array_of_args) unless resource.restricted?
+      ResourceValidatorJob.perform_bulk(array_of_args)
     end
 
     # @resources.each do |resource|
